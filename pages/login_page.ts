@@ -1,20 +1,14 @@
 import { type Page, type Locator } from '@playwright/test';
 
 export class LoginPage {
-  private baseUrl: string;
-  private urlSuffix: string = '/login';
-  private pageUrl: string;
-
-  private page: Page;
+  private static URL_SUFFIX: string = '/login';
   
-  private userNameField: Locator;
-  private passwordField: Locator;
+  readonly userNameField: Locator;
+  readonly passwordField: Locator;
   private loginButton: Locator;
 
   constructor(baseUrl: string, page: Page) {
-    this.baseUrl = baseUrl;
-    this.pageUrl = this.baseUrl + this.urlSuffix;
-    this.page = page;
+    super(baseUrl, this.URL_SUFFIX, page);
     
     this.userNameField = this.page.locator('#user-name');
     this.passwordField = this.page.locator('#password');
