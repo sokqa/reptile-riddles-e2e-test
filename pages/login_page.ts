@@ -13,12 +13,22 @@ export class LoginPage {
 
   constructor(baseUrl: string, page: Page) {
     this.baseUrl = baseUrl;
-    pageUrl = baseUrl + urlSuffix;
+    this.pageUrl = this.baseUrl + this.urlSuffix;
     this.page = page;
     
-    userNameField = page.locator('#user-name');
-    passwordField = page.locator('#password');
+    this.userNameField = this.page.locator('#user-name');
+    this.passwordField = this.page.locator('#password');
+    this.loginButton = this.page.getByRole('button', { name: 'LOGIN', exact: true });
   }
 
+  async goto() {
+    await this.page.goto(this.pageUrl);
+  }
+
+  async login(user: string, password: string) {
+    await this.userNameField.fill(user);
+    await this.passwordField.fill(password);
+    await this.loginButton.click();
+  }
 
 }
