@@ -7,7 +7,7 @@ export class LoginPage extends BasePage {
   
   readonly userNameField: Locator;
   readonly passwordField: Locator;
-  private loginButton: Locator;
+  readonly loginButton: Locator;
 
   protected constructor(baseUrl: string, page: Page) {
     super(baseUrl, URL_SUFFIX, page);

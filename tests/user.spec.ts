@@ -30,7 +30,7 @@ test('Register user', async ({ page }) => {
   const loginPage: LoginPage = new LoginPage(BASE_URL, page);
   const mainPage: MainPage = new MainPage(BASE_URL, page);
 
-  const user: string = `user-${Date.now()}`;
+  const user: string = getUserName();
   const email: string = `${user}@test.com`;
   const password: string = 'my-plain-password';
 
@@ -41,3 +41,28 @@ test('Register user', async ({ page }) => {
   await loginPage.login(user, password);
   await expect(mainPage.logoutButton, 'should be logged in').toBeVisible();
 });
+
+[
+  {name: 'Empty email', user: getUserName(), email: '', password: 'test'},
+  {name: 'Incorrect email format', user: getUserName(), email: 'test', password: 'somewhatMoreComplex#Password'},
+  {name: 'Empty password', user: getUserName(), email: 'test@test.hu', password: ''}
+].forEach(({ name, user, email, password }) => {
+  test(`Failed registration: ${name} @failed-reg`, async ({ page }) => {
+    const registrationPage: RegistrationPage = new RegistrationPage(BASE_URL, page);
+    const loginPage: LoginPage = new LoginPage(BASE_URL, page);
+    const mainPage: MainPage = new MainPage(BASE_URL, page);
+
+    await registrationPage.goto();
+    await registrationPage.register(user, email, password);
+    
+    await loginPage.goto();  // Failed registration does navigate here but I think that should be changed
+    await loginPage.login(user, password);
+    await expect(page, 'should still be on login page').toHaveURL(loginPage.pageUrl);
+    await expect(loginPage.loginButton).toBeVisible();
+ })
+})
+
+function getUserName() {
+  return `user-${Date.now()}`;
+}
+
