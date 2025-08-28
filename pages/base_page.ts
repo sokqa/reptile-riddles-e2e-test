@@ -8,5 +8,9 @@ export class BasePage {
     this.pageUrl = baseUrl + urlSuffix;
     this.page = page;
   }
+
+  async goto() {
+    await this.page.goto(this.pageUrl);
+  }
 }
 
