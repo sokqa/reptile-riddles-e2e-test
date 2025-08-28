@@ -26,19 +26,18 @@ See `exploratory_testing/` for some preparation notes and results.
 
 ### Install Playwright
 
-Playwright can be installed via `npm`.
-My OS (Fedora 42) is not supported, however, so I used [an Ubuntu distrobox](https://gist.github.com/pskopek/de9d79cf0511839dd5c97703be5cc624?permalink_comment_id=5731662#gistcomment-5731662) workaround to get it running.
+Playwright can be installed via `npm`, so make sure you have `npm` on your system.
+Playwright does not support my OS (Fedora 42), so I used [an Ubuntu distrobox](https://gist.github.com/pskopek/de9d79cf0511839dd5c97703be5cc624?permalink_comment_id=5731662#gistcomment-5731662) to get it running.
 
-On a supported OS, once this repo is cloned and you have navigated into its directory, run:
+Once this repo is cloned and you have navigated into its directory, install the dependencies:
 
-Install dependencies:
 ```shell
 npx playwright install-deps
 ```
 
 ### Run Tests
 
-Make sure `BASE_URL` is set correctly in the test script.
+Make sure `BASE_URL`, the url on which the SUT is available, is set correctly in the test script.
 
 Then run:
 
